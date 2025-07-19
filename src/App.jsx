@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/albatross">
 
             <div className="bg-[#131313] text-white">
                 <Navbar />
