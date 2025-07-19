@@ -3,7 +3,7 @@ import ProductModalShow from "./ProductModalShow";
 
 export default function ProdutCategory({ activeCategory, products }) {
 
-    
+
   const [showPopup, setShowPopup] = useState(false);
 
   const filteredProducts =
@@ -11,28 +11,29 @@ export default function ProdutCategory({ activeCategory, products }) {
       ? products
       : products.filter((product) => product.category.includes(activeCategory));
 
-//  const [filteredProduct, setFilteredProduct] = useState([]);
+  //  const [filteredProduct, setFilteredProduct] = useState([]);
 
-//     const handleCategoryClick = (category) => {
-//         setActive(category);
-//         if (category === "All") {
-//             setFilteredProduct([]);
-//         } else {
-//             const filtered = productData.filter((product) =>
-//                 product.category.includes(category)
-//             );
-//             setFilteredProduct(filtered);
-//             // console.log(filtered);
-//         }
-//     };
-    
+  //     const handleCategoryClick = (category) => {
+  //         setActive(category);
+  //         if (category === "All") {
+  //             setFilteredProduct([]);
+  //         } else {
+  //             const filtered = productData.filter((product) =>
+  //                 product.category.includes(category)
+  //             );
+  //             setFilteredProduct(filtered);
+  //             // console.log(filtered);
+  //         }
+  //     };
+
   return (
-    <div className="px-4 sm:px-8 md:px-12 lg:px-20 py-10 grid grid-rows-auto" onClick={() => setShowPopup(true)}>
+    <div className="px-4 sm:px-8 md:px-12 lg:px-20 py-10 grid grid-rows-auto">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 text-white">
         {filteredProducts.map((product) => (
           <div
             key={product.id}
             className="relative group overflow-hidden shadow-md cursor-pointer"
+            onClick={() => setShowPopup(true)}
           >
             <img
               src={product.image}
@@ -150,7 +151,7 @@ export default function ProdutCategory({ activeCategory, products }) {
                     </div>
             </div> */}
 
-             {showPopup && <ProductModalShow category={activeCategory} products={filteredProducts} onClose={() => setShowPopup(false)} />}
+      {showPopup && <ProductModalShow category={activeCategory} products={filteredProducts} onClose={()=>setShowPopup(false)}/>}
     </div>
   );
 }
