@@ -6,6 +6,9 @@ import { RiSlideshowLine } from "react-icons/ri";
 import { TbLogout } from "react-icons/tb";
 import { useNavigate, useLocation } from "react-router-dom";
 import LogoutModal from "./LogoutModal";
+import { MdOutlineBrandingWatermark } from "react-icons/md";
+import { RiAdvertisementLine } from "react-icons/ri";
+import { IoShareSocialOutline } from "react-icons/io5";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,13 +57,33 @@ const Sidebar = () => {
           </li>
 
           <li
+            onClick={() => handleNavigate("/admin-add-branding")}
+            className={`p-2 rounded cursor-pointer flex items-center gap-2 hover:bg-white/10 ${
+              location.pathname === "/admin-add-project" ? "text-blue-500" : ""
+            }`}
+          >
+            <MdOutlineBrandingWatermark />
+            <span>Branding Project</span>
+          </li>
+
+          <li
             onClick={() => handleNavigate("/admin-add-project")}
             className={`p-2 rounded cursor-pointer flex items-center gap-2 hover:bg-white/10 ${
               location.pathname === "/admin-add-project" ? "text-blue-500" : ""
             }`}
           >
-            <AiOutlineFundProjectionScreen />
-            <span>Add Project</span>
+            <RiAdvertisementLine />
+            <span>Advertisment Project</span>
+          </li>
+
+          <li
+            onClick={() => handleNavigate("/admin-add-project")}
+            className={`p-2 rounded cursor-pointer flex items-center gap-2 hover:bg-white/10 ${
+              location.pathname === "/admin-add-project" ? "text-blue-500" : ""
+            }`}
+          >
+            <IoShareSocialOutline />
+            <span>Social Media Project</span>
           </li>
 
            <li

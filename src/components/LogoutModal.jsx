@@ -1,11 +1,17 @@
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../src/firebase"; 
+import { signOut } from "firebase/auth";
 
-const LogoutModal = (onCancel) => {
+const LogoutModal = ({ onCancel }) => {
   const navigate = useNavigate();
-  
-  const handleLogout = () => {
-    // Clear token or user session here
-    navigate("/admin-login");
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);           
+      navigate("/albatross/");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   return (
