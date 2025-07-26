@@ -59,7 +59,7 @@ const Sidebar = () => {
           <li
             onClick={() => handleNavigate("/admin-add-branding")}
             className={`p-2 rounded cursor-pointer flex items-center gap-2 hover:bg-white/10 ${
-              location.pathname === "/admin-add-project" ? "text-blue-500" : ""
+              location.pathname === "/admin-add-branding" ? "text-blue-500" : ""
             }`}
           >
             <MdOutlineBrandingWatermark />
@@ -67,19 +67,19 @@ const Sidebar = () => {
           </li>
 
           <li
-            onClick={() => handleNavigate("/admin-add-project")}
+            onClick={() => handleNavigate("/admin-add-advertisment")}
             className={`p-2 rounded cursor-pointer flex items-center gap-2 hover:bg-white/10 ${
-              location.pathname === "/admin-add-project" ? "text-blue-500" : ""
+              location.pathname === "/admin-add-advertisment" ? "text-blue-500" : ""
             }`}
           >
             <RiAdvertisementLine />
             <span>Advertisment Project</span>
           </li>
 
-          <li
-            onClick={() => handleNavigate("/admin-add-project")}
+          <li 
+            onClick={() => handleNavigate("/admin-add-socialmedia")}
             className={`p-2 rounded cursor-pointer flex items-center gap-2 hover:bg-white/10 ${
-              location.pathname === "/admin-add-project" ? "text-blue-500" : ""
+              location.pathname === "/admin-add-socialmedia" ? "text-blue-500" : ""
             }`}
           >
             <IoShareSocialOutline />

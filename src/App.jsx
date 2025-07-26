@@ -9,13 +9,14 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Dashboard from "./pages/dashboard/Dashboard";
-import AddProjects from "./components/AddProjects";
 import ShowProjects from "./components/ShowProjects";
-import LogoutModal from "./components/LogoutModal";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { useEffect, useState } from "react";
 import { auth } from "./firebase";
+import AddBrandingProject from "./components/adminDashboard/AddBrandingProject";
+import AddAdvertismentProject from "./components/adminDashboard/AddAdvertismentProject";
+import AddSocialMediaProject from "./components/adminDashboard/AddSocialMediaProject";
 
 function AppRoutes({ user }) {
   const location = useLocation();
@@ -45,9 +46,20 @@ function AppRoutes({ user }) {
             element={user ? <Dashboard /> : <Navigate to="/admin-login" />}
           />
           <Route
-            path="/admin-add-project"
-            element={user ? <AddProjects /> : <Navigate to="/admin-login" />}
+            path="/admin-add-branding"
+            element={user ? <AddBrandingProject /> : <Navigate to="/admin-login" />}
           />
+
+           <Route
+            path="/admin-add-advertisment"
+            element={user ? <AddAdvertismentProject /> : <Navigate to="/admin-login" />}
+          />
+
+          <Route
+            path="/admin-add-socialmedia"
+            element={user ? <AddSocialMediaProject /> : <Navigate to="/admin-login" />}
+          />
+
           <Route
             path="/admin-show-project"
             element={user ? <ShowProjects /> : <Navigate to="/admin-login" />}
