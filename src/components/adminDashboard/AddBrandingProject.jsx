@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { db, storage } from "../../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db } from "../../firebase.js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import Sidebar from "../Sidebar";
 
@@ -44,10 +43,24 @@ const AddBrandingProject = () => {
           return;
         }
 
-        const imageRef = ref(storage, `branding/${Date.now()}_${image.name}`);
-        await uploadBytes(imageRef, image);
-        const imageUrl = await getDownloadURL(imageRef);
+        // Upload to Cloudinary
+        const formData = new FormData();
+        formData.append("file", image);
+        formData.append("upload_preset", `${import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET}`);
+        formData.append("folder", `${import.meta.env.VITE_CLOUDINARY_FOLDER}_branding`);
 
+        const cloudinaryRes = await fetch(
+          `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        const cloudinaryData = await cloudinaryRes.json();
+        const imageUrl = cloudinaryData.secure_url;
+
+        // Add to Firestore
         await addDoc(collection(db, "projects"), {
           title,
           category: "Branding",
