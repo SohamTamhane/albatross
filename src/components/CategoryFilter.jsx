@@ -1,61 +1,81 @@
-import React, {useState } from "react";
+import React, { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../src/firebase";
 import ProdutCategory from "./ProductsCategory";
-import image1 from "../assets/image1.png";
-import image2 from "../assets/image2.png";
-import image3 from "../assets/image3.png";
-import image4 from "../assets/image4.png";
-import ProductModalShow from "./ProductModalShow";
 
+// Add "Advertisement" to categories if needed
+const categories = ["All", "Branding", "Social Media",  "Advertisement", "Website"];
 
-const productData = [
-  { id: 1, name: "Kadam Realty", image: image1, category:"Branding", tags:"Real Estate"},
-  { id: 2, name: "AAKAR Alumini DYP", image: image2, category:"Branding", tags:"Community" },
-  { id: 3, name: "Kadam Realty", image: image3, category:"Social Media", tags:"Real Estate"},
-  { id: 4, name: "Kadam Realty", image: image1, category:"Social Media", tags:"Real Estate"},
-  { id: 5, name: "AAKAR Alumini DYP", image: image2, category:"Social Media", tags:"Community" },
-  { id: 6, name: "Kadam Realty", image: image4, category:"Media Production", tags:"Real Estate"},
-  { id: 7, name: "Kadam Realty", image: image4, category:"Media Production", tags:"Real Estate"},
-  { id: 8, name: "AAKAR Alumini DYP", image: image4, category:"Website", tags:"Community" },
-  { id: 9, name: "Kadam Realty", image: image1, category:"Website", tags:"Real Estate"},
-  { id: 10, name: "Kadam Realty", image: image2,category:"Branding", tags:"Real Estate"},
-];
+export default function CategoryFilter() {
+  const [active, setActive] = useState("All");
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, "projects"));
+        const data = snapshot.docs.map((doc) => {
+          const raw = doc.data();
+          const imageList = Array.isArray(raw.imageUrls) ? raw.imageUrls : [];
 
-const categories = ["All", "Branding", "Social Media", "Media Production", "Website"];
+          return {
+            id: doc.id,
+            title: raw.title,
+            category: raw.category,
+            tags: raw.tags,
+            description: raw.description,
+            imageUrl: imageList[0] || null, // 🟢 First thumbnail image
+            videoUrl: raw.videoUrl || null,
+            fullData: raw, // if needed for modals
+          };
+        });
 
-export default function CategoryFilter(){
+        setProducts(data);
+        setFilteredProducts(data.slice(0, 8)); // First 8 initially
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    const [active, setActive] = useState("All");
+    fetchProjects();
+  }, []);
 
-    return(
-        <div className="text-white px-4 py-6">
-            <div className="sticky top-0 z-40 bg-[#131313] bg-opacity-80 backdrop-blur-sm py-4 px-4 w-full">
-                <ul className="flex flex-row justify-center gap-4 text-lg md:text-2xl sm:text-xl font-montserrat text-gray-400 ">
-                    {categories.map((category) => (
-                        <li
-                        key={category}
-                        onClick={() => setActive(category)}
-                        className={`cursor-pointer transition-all duration-200 ${
-                            active === category ? "text-white font-bold" : ""
-                        }`}
-                        
-                        >
-                        {category}
-                        </li>
-                    ))}
-                
-                </ul>
-            </div>
-            
-            <ProdutCategory activeCategory={active} products={productData} />
-{/* 
-            {active !== "All" && filteredProducts.length > 0 && (
-            <ProductModalShow
-            category={active}
-            products={filteredProducts}
-            onClose={() => handleCategoryClick("All")}
-            />
-      )} */}
-        </div>
-    )
+  useEffect(() => {
+    if (active === "All") {
+      setFilteredProducts(products.slice(0, 8));
+    } else {
+      const filtered = products.filter((item) => item.category === active);
+      setFilteredProducts(filtered);
+    }
+  }, [active, products]);
+
+  return (
+    <div className="text-white px-4 py-6">
+      <div className="sticky top-0 z-40 bg-[#131313] bg-opacity-80 backdrop-blur-sm py-4 px-4 w-full">
+        <ul className="flex flex-row justify-center gap-4 text-lg md:text-2xl sm:text-xl font-montserrat text-gray-400">
+          {categories.map((category) => (
+            <li
+              key={category}
+              onClick={() => setActive(category)}
+              className={`cursor-pointer transition-all duration-200 ${
+                active === category ? "text-white font-bold" : ""
+              }`}
+            >
+              {category}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {loading ? (
+        <p className="text-center py-8 text-gray-400">Loading projects...</p>
+      ) : (
+        <ProdutCategory activeCategory={active} products={filteredProducts} />
+      )}
+    </div>
+  );
 }

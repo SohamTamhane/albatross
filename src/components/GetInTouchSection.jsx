@@ -6,27 +6,36 @@ export default function GetInTouchSection() {
   const [showPopup, setShowPopup] = useState(false);
 
   return (
-    <div className="flex flex-row md:flex-row items-start justify-around py-40 sm:py-30 lg:py-35 relative">
-      <div className="text-center md:text-left">
-        <div className="font-montserrat text-3xl tracking-wide sm:text-2xl lg:text-3xl">
-          Go years without touching land, just <br className="hidden md:block"/> like an <span className="font-montserrat font-bold">Albatross</span>
-        </div>
-        <div className="flex flex-row items-center mt-35 gap-x-3.5 sm:flex-row sm:items-start ">
-          <div
-            className="bg-[#0047E2] px-4 py-2 text-lg font-montserrat font-medium cursor-pointer text-white"
+  
+    <div className="flex flex-col md:flex-row items-center md:items-start justify-around px-4 md:px-16 py-20 gap-10">
+      <div className="text-center md:text-left flex flex-col items-center md:items-start">
+        <h2 className="font-montserrat text-2xl sm:text-3xl lg:text-4xl tracking-wide mb-6">
+          Go years without touching land, just <br className="hidden md:block" />
+          like an <span className="font-bold">Albatross</span>
+        </h2>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <button
+            className="bg-[#0047E2] px-6 py-2 text-white font-medium font-montserrat text-lg rounded"
             onClick={() => setShowPopup(true)}
           >
             Get in touch
-          </div>
-          <div className="bg-white/10 px-4 py-2 text-lg font-montserrat font-medium cursor-pointer">
+          </button>
+          <button className="bg-white/10 px-6 py-2 text-white font-medium font-montserrat text-lg rounded">
             Work at ALB
-          </div>
+          </button>
         </div>
       </div>
-      <div>
-        <img src={ImageGIF} alt="ImageGIF" className="w-150 h-70" />
+
+      <div className="w-full sm:w-auto max-w-[350px] md:max-w-[450px] lg:max-w-[500px]">
+        <img
+          src={ImageGIF}
+          alt="ImageGIF"
+          className="w-full h-auto object-contain"
+        />
       </div>
 
+      {/* Contact Form Modal */}
       {showPopup && <ContactForm onClose={() => setShowPopup(false)} />}
     </div>
   );

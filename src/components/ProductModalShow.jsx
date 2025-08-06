@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-export default function ProductModalShow({ category, products, onClose }) {
+export default function ProductModalShow({ project, onClose }) {
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -14,43 +14,72 @@ export default function ProductModalShow({ category, products, onClose }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [onClose]);
 
- 
-
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-md flex items-center justify-center px-4">
       <div
         ref={modalRef}
-        className="bg-[#111] rounded max-w-5xl w-full max-h-[90vh] no-scrollbar scroll-smooth overflow-y-auto p-6 relative text-white"
+        className="bg-[#111] rounded max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 relative text-white"
       >
-        <div className="absolute rounded-full bg-white/10 top-4 right-4 px-2">
-          <button
-            onClick={onClose}
-            className="text-white hover:text-white text-3xl font-bold text-center cursor-pointer fixed"
-          >
-            ×
-          </button>
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white hover:text-gray-300 text-3xl font-bold"
+        >
+          ×
+        </button>
+
+        {/* Project Title */}
+        <h2 className="text-3xl font-bold mb-2 font-montserrat">{project.title}</h2>
+
+        {/* Tags & Category */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm rounded font-montserrat">
+            {project.category}
+          </span>
+          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm rounded font-montserrat">
+            {project.tags}
+          </span>
         </div>
-        {products.map((product) => (
-          <div key={product.id} className="mb-10">
-            <h2 className="text-3xl font-bold mb-4 font-montserrat">{product.name}</h2>
-            <div className="flex flex-wrap gap-2 mb-6">
-              <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
-                {product.category}
-              </span>
-              <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
-                {product.tags}
-              </span>
+
+        {/* Main Image */}
+        {project.imageUrl && (
+          <img
+            src={project.imageUrl}
+            alt={project.title}
+            className="w-full max-h-[400px] object-contain mb-6 p-4 rounded bg-[#1c1c1c]"
+          />
+        )}
+
+        {/* Project Description */}
+        {project.description && (
+          <p className="text-gray-300 text-base mb-6 leading-relaxed font-montserrat">
+            {project.description}
+          </p>
+        )}
+
+        {/* Sections (if any) */}
+        {project.sections && project.sections.length > 0 && (
+          <div className="mt-4">
+            {/* <h3 className="text-2xl font-bold mb-4">Project Sections</h3> */}
+            <div className="space-y-6">
+              {project.sections.map((section, index) => (
+                <div
+                  key={index}
+                  className="p-4 rounded bg-[#1c1c1c]"
+                >
+                  {section.imageUrl && (
+                    <img
+                      src={section.imageUrl}
+                      alt={`section-${index}`}
+                      className="w-full max-h-[300px] object-contain mb-3 rounded"
+                    />
+                  )}
+                  <p className="text-sm text-gray-300">{section.description}</p>
+                </div>
+              ))}
             </div>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full object-contain bg-black rounded-md mb-6 max-h-[400px]"
-            />
-            <p className="text-gray-300 leading-relaxed font-montserrat">
-              Every masterpiece has a story! Our handcrafted mementos for ELEV8 by The Architect’s Diary are designed with soul and skill. Catch the behind-the-scenes magic in our latest video!
-            </p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

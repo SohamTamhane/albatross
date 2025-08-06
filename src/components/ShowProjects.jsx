@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../src/firebase'; 
 import Sidebar from './Sidebar';
-import ProjectImage from '../assets/project-image.png';
+import ProjectImage from '../assets/project-image.png'; 
 
 const ShowProjects = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    // Simulate fetching data
-    setProjects([
-      {
-        title: 'PetX Website',
-        category: 'Branding',
-        tags: ['React', 'MongoDB'],
-        // image: 'https://www.google.com/imgres?q=project%20images&imgurl=https%3A%2F%2Fwww.simplilearn.com%2Fice9%2Ffree_resources_article_thumb%2Fproject_management_coursefees.jpg&imgrefurl=https%3A%2F%2Fwww.simplilearn.com%2Fproject-management-ideas-article&docid=5l-GsPm10bdJ7M&tbnid=_BYi1AhPaY6-AM&vet=12ahUKEwi7l7XajdiOAxUj9zgGHcGEJLUQM3oECCUQAA..i&w=848&h=477&hcb=2&ved=2ahUKEwi7l7XajdiOAxUj9zgGHcGEJLUQM3oECCUQAA'
-      },
-      {
-        title: 'Agro App',
-        category: 'Social Media',
-        tags: ['Firebase', 'CNN'],
-        // image: 'https://via.placeholder.com/150'
+    const fetchProjects = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "projects"));
+        const fetchedProjects = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setProjects(fetchedProjects);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
       }
-    ]);
+    };
+
+    fetchProjects();
   }, []);
 
   return (
@@ -30,13 +31,16 @@ const ShowProjects = () => {
         <h2 className="text-3xl font-bold mb-6">All Projects</h2>
 
         <div className="space-y-6">
-          {projects.map((project, index) => (
+          {projects.length === 0 && (
+            <p className="text-gray-400">No projects found.</p>
+          )}
+          {projects.map((project) => (
             <div
-              key={index}
-              className="bg-[#1a1a1a] p-6 rounded shadow-md w-full max-w-2xl border-1 border-gray-500"
+              key={project.id}
+              className="bg-[#1a1a1a] p-6 rounded shadow-md w-full max-w-2xl border border-gray-600"
             >
               <img
-                src={ProjectImage}
+                src={project.imageUrl || ProjectImage}
                 alt={project.title}
                 className="w-full h-60 object-cover rounded mb-4"
               />
@@ -45,7 +49,9 @@ const ShowProjects = () => {
                 <p className="mb-1"><strong>Category:</strong> {project.category}</p>
                 <p>
                   <strong>Tags:</strong>{' '}
-                  <span className="text-gray-400">{project.tags.join(', ')}</span>
+                  <span className="text-gray-400">
+                    {Array.isArray(project.tags) ? project.tags.join(', ') : project.tags}
+                  </span>
                 </p>
               </div>
             </div>

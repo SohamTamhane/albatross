@@ -1,12 +1,20 @@
 import { useState } from "react";
-import { db, storage } from "../../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db } from "../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import Sidebar from "../Sidebar";
+import toast from "react-hot-toast";
 
-const AddAdvertismentProject = () => {
+const AddAdvertisementProject = () => {
   const [projects, setProjects] = useState([
-    { title: "", tags: "", desc: "", video: null }
+    {
+      title: "",
+      tags: "",
+      desc: "",
+      youtubeUrl: "",
+      thumbnail: null,
+      thumbnailUrl: "",
+      sections: [],
+    },
   ]);
   const [loading, setLoading] = useState(false);
 
@@ -16,19 +24,40 @@ const AddAdvertismentProject = () => {
     setProjects(updated);
   };
 
-  const handleVideoChange = (index, file) => {
-    const updated = [...projects];
-    updated[index].video = file;
-    setProjects(updated);
+  const handleThumbnailChange = async (e, index) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+    formData.append("folder", `${import.meta.env.VITE_CLOUDINARY_FOLDER}_advertisement`);
+
+    try {
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const data = await res.json();
+
+      const updated = [...projects];
+      updated[index].thumbnail = file;
+      updated[index].thumbnailUrl = data.secure_url;
+      setProjects(updated);
+
+      toast.success("Thumbnail uploaded successfully!");
+    } catch (err) {
+      console.error("Cloudinary upload error:", err);
+      toast.error("Failed to upload thumbnail.");
+    }
   };
 
-  const addProjectField = () => {
-    setProjects([...projects, { title: "", tags: "", desc: "", video: null }]);
-  };
-
-  const removeProject = (index) => {
-    const updated = projects.filter((_, i) => i !== index);
-    setProjects(updated);
+  const getYouTubeEmbedUrl = (url) => {
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([\w-]{11})/);
+    return match ? `https://www.youtube.com/embed/${match[1]}` : "";
   };
 
   const handleSubmit = async (e) => {
@@ -37,32 +66,40 @@ const AddAdvertismentProject = () => {
 
     try {
       for (const project of projects) {
-        const { title, tags, desc, video } = project;
-        if (!title || !tags || !desc || !video) {
-          alert("All fields are required in every project.");
+        const { title, tags, desc, youtubeUrl, thumbnailUrl } = project;
+
+        if (!title || !tags || !desc || !youtubeUrl || !thumbnailUrl) {
+          toast.error("All fields including thumbnail are required.");
           setLoading(false);
           return;
         }
-
-        const videoRef = ref(storage, `advertisements/${Date.now()}_${video.name}`);
-        await uploadBytes(videoRef, video);
-        const videoUrl = await getDownloadURL(videoRef);
 
         await addDoc(collection(db, "projects"), {
           title,
           category: "Advertisement",
           tags,
           description: desc,
-          videoUrl,
+          videoUrl: youtubeUrl,
+          imageUrls: [thumbnailUrl],
           createdAt: serverTimestamp(),
         });
       }
 
-      alert("Advertisement projects submitted successfully!");
-      setProjects([{ title: "", tags: "", desc: "", video: null }]);
+      toast.success("Projects submitted successfully!");
+      setProjects([
+        {
+          title: "",
+          tags: "",
+          desc: "",
+          youtubeUrl: "",
+          thumbnail: null,
+          thumbnailUrl: "",
+          sections: [],
+        },
+      ]);
     } catch (err) {
       console.error(err);
-      alert("Error submitting projects.");
+      toast.error("Error submitting project.");
     } finally {
       setLoading(false);
     }
@@ -80,7 +117,9 @@ const AddAdvertismentProject = () => {
               {projects.length > 1 && (
                 <button
                   type="button"
-                  onClick={() => removeProject(index)}
+                  onClick={() =>
+                    setProjects(projects.filter((_, i) => i !== index))
+                  }
                   className="absolute top-2 right-2 text-red-400 hover:text-red-600 text-sm"
                 >
                   ✕
@@ -119,19 +158,63 @@ const AddAdvertismentProject = () => {
                 onChange={(e) => handleChange(index, "desc", e.target.value)}
               />
 
-              <label className="block mb-2">Project Video</label>
+              <label className="block mb-2">Main YouTube Video URL</label>
+              <input
+                type="url"
+                placeholder="https://www.youtube.com/watch?v=video_id"
+                className="mb-4 w-full px-3 py-2 bg-[#2a2a2a] border rounded"
+                value={project.youtubeUrl}
+                onChange={(e) => handleChange(index, "youtubeUrl", e.target.value)}
+              />
+
+              {project.youtubeUrl && getYouTubeEmbedUrl(project.youtubeUrl) && (
+                <div className="mt-2 mb-6">
+                  <label className="block mb-2">Preview</label>
+                  <iframe
+                    width="100%"
+                    height="220"
+                    src={getYouTubeEmbedUrl(project.youtubeUrl)}
+                    title="YouTube video preview"
+                    allowFullScreen
+                    className="rounded"
+                  ></iframe>
+                </div>
+              )}
+
+              <label className="block mb-2">Thumbnail Image</label>
               <input
                 type="file"
-                accept="video/*"
-                className="mb-4 w-[60%] p-1 rounded border border-white"
-                onChange={(e) => handleVideoChange(index, e.target.files[0])}
+                accept="image/*"
+                onChange={(e) => handleThumbnailChange(e, index)}
+                className="mb-4 w-full px-3 py-2 bg-[#2a2a2a] border rounded"
               />
+
+              {project.thumbnailUrl && (
+                <img
+                  src={project.thumbnailUrl}
+                  alt="Thumbnail Preview"
+                  className="w-full max-w-xs rounded mb-4"
+                />
+              )}
             </div>
           ))}
 
           <button
             type="button"
-            onClick={addProjectField}
+            onClick={() =>
+              setProjects([
+                ...projects,
+                {
+                  title: "",
+                  tags: "",
+                  desc: "",
+                  youtubeUrl: "",
+                  thumbnail: null,
+                  thumbnailUrl: "",
+                  sections: [],
+                },
+              ])
+            }
             className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white"
           >
             + Add Another Project
@@ -150,4 +233,4 @@ const AddAdvertismentProject = () => {
   );
 };
 
-export default AddAdvertismentProject;
+export default AddAdvertisementProject;
