@@ -35,7 +35,7 @@ export default function AnimatedHeroText() {
   }, [charIndex, isDeleting, index]);
 
   return (
-    <div className="bg-[#0049E6] w-full px-2 py-8">
+    <div className="bg-[#0049E6] w-full px-2 py-4">
       <div className="font-inter text-4xl sm:text-5xl md:text-6xl font-bold text-center text-white transition-all duration-500 ease-in-out">
         Extended <span className="text-white">{displayText}</span> team
       </div>

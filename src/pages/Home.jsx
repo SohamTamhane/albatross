@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className="w-full">
       {/* Hero section */}
-      <div className="flex flex-col items-center mt-12 px-4">
+      <div className="flex flex-col items-center mt-12">
         <div className="font-inter text-5xl sm:text-5xl md:text-6xl font-bold mb-4 text-center">
           Your brand's
         </div>
@@ -116,9 +116,9 @@ export default function Home() {
       </div>
 
       {/* One of the creatives */}
-      <div className="mt-10 px-4">
+      {/* <div className="mt-10 px-4">
         <CreativeSection />
-      </div>
+      </div> */}
     </div>
   );
 }

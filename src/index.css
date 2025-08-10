@@ -14,3 +14,13 @@
 .clip-custom-shape {
   clip-path: polygon(0 0, 0% 0%, 0% 100%, 100% 100%, 100% 0);
 }
+
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+  scrollbar-width: none;     /* For Firefox */
+}

@@ -13,14 +13,14 @@ export default function AdsModal({ project, onClose }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [onClose]);
 
-  // Clean YouTube embed URL
+  // Clean YouTube embed URL (minimal branding)
   const getCleanYouTubeEmbedUrl = (url) => {
     const match = url?.match(
       /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/
     );
     if (match) {
       const videoId = match[1];
-      return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}`;
+      return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1&mute=1&controls=0&disablekb=1&fs=0&iv_load_policy=3&playsinline=1&loop=1&playlist=${videoId}`;
     }
     return null;
   };
@@ -31,10 +31,10 @@ export default function AdsModal({ project, onClose }) {
     <div className="fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-md flex items-center justify-center px-4">
       <div
         ref={modalRef}
-        className="bg-[#111] rounded max-w-6xl w-full max-h-[90vh] overflow-y-auto p-6 relative text-white"
+        className="bg-[#111] rounded max-w-6xl w-full max-h-[90vh] overflow-y-auto no-scrollbar p-6 relative text-white"
       >
         {/* Close Button */}
-         <div className="sticky top-0 z-50 flex justify-end">
+        <div className="sticky top-0 z-50 flex justify-end">
           <button
             onClick={onClose}
             className="text-white hover:text-gray-300 text-3xl font-bold"
@@ -42,6 +42,8 @@ export default function AdsModal({ project, onClose }) {
             ×
           </button>
         </div>
+
+        {/* Project Title */}
         <h2 className="text-3xl font-bold mb-4 font-montserrat">
           {project.title}
         </h2>
@@ -56,11 +58,22 @@ export default function AdsModal({ project, onClose }) {
           </span>
         </div>
 
-        
         <div className="flex flex-col md:flex-row gap-6">
-          {/* Left: Video or Fallback Image */}
+          {/* Left: Video or Image */}
           <div className="md:w-1/2 w-full">
-            {embedUrl ? (
+            {project.videoFile ? (
+              // Self-hosted video (no branding at all)
+              <video
+                src={project.videoFile}
+                className="w-full h-auto rounded"
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls={false}
+              />
+            ) : embedUrl ? (
+              // YouTube embed with minimal branding
               <div className="aspect-video">
                 <iframe
                   className="w-full h-full rounded"
@@ -72,6 +85,7 @@ export default function AdsModal({ project, onClose }) {
                 ></iframe>
               </div>
             ) : (
+              // Fallback image
               <img
                 src={
                   project.imageUrls?.[0] ||
@@ -83,9 +97,8 @@ export default function AdsModal({ project, onClose }) {
             )}
           </div>
 
-          {/* Right: Text Content */}
+          {/* Right: Description */}
           <div className="md:w-1/2 w-full flex flex-col">
-            {/* Description */}
             {project.description && (
               <p className="text-gray-300 text-base leading-relaxed font-montserrat">
                 {project.description}

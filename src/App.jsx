@@ -84,7 +84,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter basename="/albatross">
+    <BrowserRouter>
       <AppRoutes user={user} />
     </BrowserRouter>
   );
