@@ -13,13 +13,13 @@ export default function Home() {
     <div className="w-full">
       {/* Hero section */}
       <div className="flex flex-col items-center mt-12">
-        <div className="font-inter text-5xl sm:text-5xl md:text-6xl font-bold mb-4 text-center">
-          Your brand's
+        <div className="font-inter text-5xl sm:text-5xl md:text-6xl mb-4 text-center">
+          Your extended
         </div>
 
         <AnimatedHeroText/>
 
-        <div className="font-poppins text-sm sm:text-base text-center mt-6 max-w-2xl text-gray-300">
+        <div className="font-poppins text-sm sm:text-base text-center mt-8 max-w-2xl text-gray-300">
           Looking to grow your business, increase sales, and boost profits{" "}
           <br />
           with paid ads? You're in the right place!
