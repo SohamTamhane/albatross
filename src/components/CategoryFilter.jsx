@@ -56,7 +56,7 @@ export default function CategoryFilter() {
   return (
     <div className="text-white px-4 py-6">
       <div className="sticky top-0 z-40 bg-[#131313] bg-opacity-80 backdrop-blur-sm py-4 px-4 w-full">
-        <ul className="flex flex-row justify-center gap-4 text-lg md:text-2xl sm:text-xl font-montserrat text-gray-400">
+        <ul className="flex flex-row gap-4 text-lg md:text-2xl sm:text-xl font-montserrat text-gray-400 w-full overflow-x-scroll text-nowrap lg:justify-center md:justify-center sm:justify-start no-scrollbar">
           {categories.map((category) => (
             <li
               key={category}
