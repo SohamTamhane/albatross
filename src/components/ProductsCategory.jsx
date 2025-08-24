@@ -34,9 +34,6 @@ export default function ProdutCategory({ activeCategory }) {
       ? projects
       : projects.filter((product) => product.category === activeCategory);
 
-  useEffect(()=>{
-    console.log(selectedProject);
-  }, [selectedProject])
   return (
     <div className={`px-4 sm:px-8 md:px-12 lg:px-20 py-10`}>
       {loading ? (

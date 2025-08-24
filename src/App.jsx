@@ -25,7 +25,7 @@ function AppRoutes({ user }) {
 
   return (
     <>
-      <div className="bg-[#131313] text-white">
+      <div className="bg-[#131313] text-white font-[var(--font-aktiv)]">
         {!isAdminRoute && <Navbar />}
 
         <Routes>
