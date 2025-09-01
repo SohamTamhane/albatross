@@ -7,19 +7,33 @@ import CreativeSection from "../components/CreativeSection";
 import GetInTouchSection from "../components/GetInTouchSection";
 import CategoryFilter from "../components/CategoryFilter";
 import AnimatedHeroText from "../components/AnimatedHeroText";
+import ContactForm from "../components/ContactForm";
+import { useState } from "react";
 
 export default function Home() {
+  const [showPopup, setShowPopup] = useState(false);
+
   return (
     <div className="w-full">
       {/* Hero section */}
       <div className="flex flex-col items-center mt-12">
-        <div className="font-inter text-5xl sm:text-5xl md:text-6xl mb-4 text-center">
+        <div className="font-montserrat text-5xl sm:text-5xl md:text-6xl mb-2 text-center">
           Your extended
         </div>
 
         <AnimatedHeroText/>
 
-        <div className="font-poppins text-sm sm:text-base text-center mt-8 max-w-2xl text-gray-300">
+        <div className="font-montserrat text-5xl sm:text-5xl md:text-6xl text-center relative z-10 mt-2">wing</div>
+
+        <button
+          className="bg-[#0047E2] px-4 py-1 text-white font-medium font-montserrat text-lg mt-10 cursor-pointer"
+          onClick={() => setShowPopup(true)}
+        >
+          Talk to us
+        </button>
+
+
+        <div className="font-montserrat text-sm sm:text-base text-center mt-8 max-w-2xl text-gray-300">
           Looking to grow your business, increase sales, and boost profits{" "}
           <br />
           with paid ads? You're in the right place!
@@ -41,7 +55,7 @@ export default function Home() {
           className="absolute inset-0 object-cover w-full h-full"
         />
 
-        <div className="relative max-w-3xl text-center font-montserrat text-sm sm:text-base md:text-lg font-light px-2">
+        <div className="relative max-w-4xl text-center font-montserrat text-sm sm:text-base md:text-lg font-light px-2">
           <p>
             We can have some text here saying or explaining a story or the
             values we provide at Albatross. How a brand is important to stand
@@ -65,7 +79,7 @@ export default function Home() {
         <h1 className="mb-10 text-xl sm:text-2xl font-montserrat font-light text-[#B2B2B2] text-center">
           F E A T U R E D
         </h1>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid md:grid-cols-2">
           <div className="relative group overflow-hidden cursor-pointer">
             <img
               src={image1}
@@ -119,6 +133,8 @@ export default function Home() {
       {/* <div className="mt-10 px-4">
         <CreativeSection />
       </div> */}
+
+       {showPopup && <ContactForm onClose={() => setShowPopup(false)} />}
     </div>
   );
 }

@@ -15,30 +15,32 @@ export default function BrandingModal({ project, onClose }) {
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-md flex items-center justify-center px-6">
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-md flex items-center justify-center">
       <div
         ref={modalRef}
-        className="bg-[#111] rounded max-w-5xl w-full max-h-[90vh] p-6 relative overflow-y-auto text-white no-scrollbar"
+        className="bg-[#111] w-full h-full p-6 relative overflow-y-auto text-white no-scrollbar"
       >
-        
+        {/* Close Button */}
         <div className="sticky top-0 z-50 flex justify-end">
           <button
             onClick={onClose}
-            className="text-white hover:text-gray-300 text-3xl font-bold"
+            className="text-white hover:text-gray-300 text-3xl font-bold cursor-pointer"
           >
             ×
           </button>
         </div>
 
         {/* Project Title */}
-        <h2 className="text-3xl font-bold mb-2 font-montserrat">{project.title}</h2>
+        <h2 className="text-3xl font-bold mb-2 font-montserrat">
+          {project.title}
+        </h2>
 
         {/* Tags & Category */}
         <div className="flex flex-wrap gap-2 mb-4">
-          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm rounded font-montserrat">
+          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
             {project.category}
           </span>
-          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm rounded font-montserrat">
+          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
             {project.tags}
           </span>
         </div>
@@ -48,7 +50,7 @@ export default function BrandingModal({ project, onClose }) {
           <img
             src={project.imageUrl}
             alt={project.title}
-            className="w-full max-h-[400px] object-contain mb-6 p-4 rounded bg-[#1c1c1c]"
+            className="w-full max-h-[500px] object-contain mb-6 p-4 rounded"
           />
         )}
 
@@ -59,43 +61,39 @@ export default function BrandingModal({ project, onClose }) {
           </p>
         )}
 
-       <div>
-         {/* Sections */}
+        {/* Sections */}
         {project.sections && project.sections.length > 0 && (
-          <div className="mt-4">
-            <div className="space-y-6">
-              {project.sections.map((section, index) => (
-                <div key={index}>
-                  <div className="p-4 rounded bg-[#1c1c1c] overflow-x-auto no-scrollbar">
-                    {/* If multiple images */}
-                    {section.imageUrls?.length > 0 ? (
-                      <div className="flex gap-4">
-                        {section.imageUrls.map((img, i) => (
-                          <img
-                            key={i}
-                            src={img}
-                            alt={`section-${index}-${i}`}
-                            className="h-48 object-contain rounded"
-                          />
-                        ))}
-                      </div>
-                    ) : section.imageUrl ? (
-                      <img
-                        src={section.imageUrl}
-                        alt={`section-${index}`}
-                        className="w-full max-h-[300px] object-contain mb-3 rounded"
-                      />
-                    ) : null}
-                  </div>
-                  <p className="text-gray-300 text-base mt-4 mb-6 leading-relaxed font-montserrat">
-                    {section.description}
-                  </p>
+          <div className="mt-4 space-y-6">
+            {project.sections.map((section, index) => (
+              <div key={index}>
+                <div className="p-4 rounded overflow-x-auto no-scrollbar">
+                  {/* Multiple images */}
+                  {section.imageUrls?.length > 0 ? (
+                    <div className="flex gap-4">
+                      {section.imageUrls.map((img, i) => (
+                        <img
+                          key={i}
+                          src={img}
+                          alt={`section-${index}-${i}`}
+                          className="h-48 object-contain rounded"
+                        />
+                      ))}
+                    </div>
+                  ) : section.imageUrl ? (
+                    <img
+                      src={section.imageUrl}
+                      alt={`section-${index}`}
+                      className="w-full max-h-[300px] object-contain mb-3 rounded"
+                    />
+                  ) : null}
                 </div>
-              ))}
-            </div>
+                <p className="text-gray-300 text-base mt-4 mb-6 leading-relaxed font-montserrat">
+                  {section.description}
+                </p>
+              </div>
+            ))}
           </div>
         )}
-       </div>
       </div>
     </div>
   );

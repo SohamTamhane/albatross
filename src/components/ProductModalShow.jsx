@@ -23,7 +23,7 @@ export default function ProductModalShow({ project, onClose }) {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white hover:text-gray-300 text-3xl font-bold"
+          className="absolute top-4 right-4 text-white hover:text-gray-300 text-3xl font-bold cursor-pointer"
         >
           ×
         </button>

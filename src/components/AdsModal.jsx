@@ -28,16 +28,16 @@ export default function AdsModal({ project, onClose }) {
   const embedUrl = getCleanYouTubeEmbedUrl(project.videoUrl);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-md flex items-center justify-center px-4">
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-md flex items-center justify-center">
       <div
         ref={modalRef}
-        className="bg-[#111] rounded max-w-6xl w-full max-h-[90vh] overflow-y-auto no-scrollbar p-6 relative text-white"
+        className="bg-[#111] w-full h-full overflow-y-auto no-scrollbar p-6 relative text-white"
       >
         {/* Close Button */}
         <div className="sticky top-0 z-50 flex justify-end">
           <button
             onClick={onClose}
-            className="text-white hover:text-gray-300 text-3xl font-bold"
+            className="text-white hover:text-gray-300 text-3xl font-bold cursor-pointer"
           >
             ×
           </button>
@@ -50,10 +50,10 @@ export default function AdsModal({ project, onClose }) {
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
-          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm rounded font-montserrat">
+          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
             {project.category}
           </span>
-          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm rounded font-montserrat">
+          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
             {project.tags}
           </span>
         </div>
@@ -62,7 +62,7 @@ export default function AdsModal({ project, onClose }) {
           {/* Left: Video or Image */}
           <div className="md:w-1/2 w-full">
             {project.videoFile ? (
-              // Self-hosted video (no branding at all)
+              // Self-hosted video
               <video
                 src={project.videoFile}
                 className="w-full h-auto rounded"
@@ -73,7 +73,7 @@ export default function AdsModal({ project, onClose }) {
                 controls={false}
               />
             ) : embedUrl ? (
-              // YouTube embed with minimal branding
+              // YouTube embed
               <div className="aspect-video">
                 <iframe
                   className="w-full h-full rounded"

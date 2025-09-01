@@ -21,10 +21,10 @@ export default function SocialMediaModal({ project, onClose }) {
     : [];
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-md flex items-center justify-center px-4">
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-md flex items-center justify-center">
       <div
         ref={modalRef}
-        className="bg-[#111] rounded max-w-6xl w-full max-h-[90vh] overflow-y-auto no-scrollbar p-6 relative text-white"
+        className="bg-[#111] w-full h-full overflow-y-auto no-scrollbar p-6 relative text-white"
       >
         {/* Close Button */}
         <div className="sticky top-0 z-50 flex justify-end">
@@ -43,10 +43,10 @@ export default function SocialMediaModal({ project, onClose }) {
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
-          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm rounded font-montserrat">
+          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
             {project.category}
           </span>
-          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm rounded font-montserrat">
+          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
             {project.tags}
           </span>
         </div>
@@ -69,13 +69,13 @@ export default function SocialMediaModal({ project, onClose }) {
           </div>
         )}
 
-        {/* imageUrls Grid (optional array of more images) */}
+        {/* imageUrls Grid */}
         {normalizedImages.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
             {normalizedImages.map((url, index) => (
               <div
                 key={index}
-                className="rounded overflow-hidden border border-white/10 bg-[#1c1c1c]"
+                className="rounded overflow-hidden border border-white/10"
               >
                 <img
                   src={url}
@@ -87,7 +87,7 @@ export default function SocialMediaModal({ project, onClose }) {
           </div>
         )}
 
-        {/* Sections (with description and image) */}
+        {/* Sections */}
         {project.sections?.length > 0 && (
           <div>
             {project.sections.map((section, index) => (
