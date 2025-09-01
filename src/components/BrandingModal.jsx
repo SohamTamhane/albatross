@@ -31,16 +31,16 @@ export default function BrandingModal({ project, onClose }) {
         </div>
 
         {/* Project Title */}
-        <h2 className="text-3xl font-bold mb-2 font-montserrat">
+        <h2 className="text-3xl font-bold mb-2 font-aktiv">
           {project.title}
         </h2>
 
         {/* Tags & Category */}
         <div className="flex flex-wrap gap-2 mb-4">
-          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
+          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm font-aktiv">
             {project.category}
           </span>
-          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
+          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm font-aktiv">
             {project.tags}
           </span>
         </div>
@@ -56,7 +56,7 @@ export default function BrandingModal({ project, onClose }) {
 
         {/* Description */}
         {project.description && (
-          <p className="text-gray-300 text-base mb-6 leading-relaxed font-montserrat">
+          <p className="text-gray-300 text-base mb-6 leading-relaxed font-aktiv">
             {project.description}
           </p>
         )}
@@ -87,7 +87,7 @@ export default function BrandingModal({ project, onClose }) {
                     />
                   ) : null}
                 </div>
-                <p className="text-gray-300 text-base mt-4 mb-6 leading-relaxed font-montserrat">
+                <p className="text-gray-300 text-base mt-4 mb-6 leading-relaxed font-aktiv">
                   {section.description}
                 </p>
               </div>

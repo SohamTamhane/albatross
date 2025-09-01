@@ -44,16 +44,16 @@ export default function AdsModal({ project, onClose }) {
         </div>
 
         {/* Project Title */}
-        <h2 className="text-3xl font-bold mb-4 font-montserrat">
+        <h2 className="text-3xl font-bold mb-4 font-aktiv">
           {project.title}
         </h2>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
-          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
+          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm font-aktiv">
             {project.category}
           </span>
-          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
+          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm font-aktiv">
             {project.tags}
           </span>
         </div>
@@ -100,7 +100,7 @@ export default function AdsModal({ project, onClose }) {
           {/* Right: Description */}
           <div className="md:w-1/2 w-full flex flex-col">
             {project.description && (
-              <p className="text-gray-300 text-base leading-relaxed font-montserrat">
+              <p className="text-gray-300 text-base leading-relaxed font-aktiv">
                 {project.description}
               </p>
             )}

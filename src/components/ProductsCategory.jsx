@@ -65,14 +65,14 @@ export default function ProdutCategory({ activeCategory }) {
 
                 {/* Content */}
                 <div className="absolute bottom-4 left-4 right-4 z-10">
-                  <h2 className="text-2xl font-montserrat">{product.title}</h2>
+                  <h2 className="text-2xl font-aktiv">{product.title}</h2>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {/* Left chip */}
-                    <span className="bg-white/15 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
+                    <span className="bg-white/15 border border-gray-500 text-white px-3 py-1 text-sm font-aktiv">
                       {product.category}
                     </span>
                     {/* Right chip */}
-                    <span className="px-3 py-1 text-sm font-montserrat border border-gray-300 text-gray-200">
+                    <span className="px-3 py-1 text-sm font-aktiv border border-gray-300 text-gray-200">
                       {product.tags}
                     </span>
                   </div>

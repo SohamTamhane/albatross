@@ -80,21 +80,21 @@ export default function AdsModal({ project, onClose }) {
 
           {/* Info Overlay */}
           <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-            <h2 className="text-3xl font-bold mb-2 font-montserrat">
+            <h2 className="text-3xl font-bold mb-2 font-aktiv">
               {project.title}
             </h2>
 
             <div className="flex flex-wrap gap-2 mb-4">
-              <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm rounded font-montserrat">
+              <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm rounded font-aktiv">
                 {project.category}
               </span>
-              <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm rounded font-montserrat">
+              <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm rounded font-aktiv">
                 {project.tags}
               </span>
             </div>
 
             {project.description && (
-              <p className="text-gray-300 text-base leading-relaxed font-montserrat">
+              <p className="text-gray-300 text-base leading-relaxed font-aktiv">
                 {project.description}
               </p>
             )}

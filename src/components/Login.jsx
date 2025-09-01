@@ -36,7 +36,7 @@ const Login = () => {
       </div>
 
       <div className="bg-black text-white p-8 rounded-xl shadow-lg w-[350px]">
-        <h2 className="text-2xl font-bold font-montserrat mb-4 text-center">Admin Login</h2>
+        <h2 className="text-2xl font-bold font-aktiv mb-4 text-center">Admin Login</h2>
         <form onSubmit={handleLogin} className="space-y-4">
           <input
             type="email"

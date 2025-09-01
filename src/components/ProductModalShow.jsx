@@ -29,14 +29,14 @@ export default function ProductModalShow({ project, onClose }) {
         </button>
 
         {/* Project Title */}
-        <h2 className="text-3xl font-bold mb-2 font-montserrat">{project.title}</h2>
+        <h2 className="text-3xl font-bold mb-2 font-aktiv">{project.title}</h2>
 
         {/* Tags & Category */}
         <div className="flex flex-wrap gap-2 mb-4">
-          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm rounded font-montserrat">
+          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm rounded font-aktiv">
             {project.category}
           </span>
-          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm rounded font-montserrat">
+          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm rounded font-aktiv">
             {project.tags}
           </span>
         </div>
@@ -52,7 +52,7 @@ export default function ProductModalShow({ project, onClose }) {
 
         {/* Project Description */}
         {project.description && (
-          <p className="text-gray-300 text-base mb-6 leading-relaxed font-montserrat">
+          <p className="text-gray-300 text-base mb-6 leading-relaxed font-aktiv">
             {project.description}
           </p>
         )}

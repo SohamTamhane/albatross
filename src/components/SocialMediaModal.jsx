@@ -37,23 +37,23 @@ export default function SocialMediaModal({ project, onClose }) {
         </div>
 
         {/* Title */}
-        <h2 className="text-3xl font-bold mb-2 font-montserrat">
+        <h2 className="text-3xl font-bold mb-2 font-aktiv">
           {project.title}
         </h2>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
-          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
+          <span className="bg-white/10 border border-gray-500 text-white px-3 py-1 text-sm font-aktiv">
             {project.category}
           </span>
-          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm font-montserrat">
+          <span className="bg-black/15 border border-gray-500 text-white px-3 py-1 text-sm font-aktiv">
             {project.tags}
           </span>
         </div>
 
         {/* Description */}
         {project.description && (
-          <p className="text-gray-300 text-base mb-6 leading-relaxed font-montserrat">
+          <p className="text-gray-300 text-base mb-6 leading-relaxed font-aktiv">
             {project.description}
           </p>
         )}
@@ -93,7 +93,7 @@ export default function SocialMediaModal({ project, onClose }) {
             {project.sections.map((section, index) => (
               <div key={index}>
                 {section.description && (
-                  <p className="text-gray-300 text-base mb-6 leading-relaxed font-montserrat">
+                  <p className="text-gray-300 text-base mb-6 leading-relaxed font-aktiv">
                     {section.description}
                   </p>
                 )}

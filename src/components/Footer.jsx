@@ -10,7 +10,7 @@ export default function Footer() {
             <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
                 <img src={FooterImage} alt="Logo" className=" w-full h-full text-center" />
 
-                <div className="absolute font-montserrat bottom-6 lg:left-60 lg:text-lg md:left-10 md:text-base text-gray-300 sm:hidden lg:block md:block">
+                <div className="absolute font-aktiv bottom-6 lg:left-60 lg:text-lg md:left-10 md:text-base text-gray-300 sm:hidden lg:block md:block">
                     admin@albsocial.com
                 </div>
 
