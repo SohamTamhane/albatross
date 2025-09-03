@@ -31,33 +31,35 @@ export default function Home() {
         className="flex flex-col items-center mt-8"
       >
         {/* <div className="flex flex-col items-center mt-8"> */}
-          <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl mb-2 text-center">
-            Your extended
-          </div>
+        <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl mb-2 text-center tracking-normal">
+          Your extended
+        </div>
 
-          <AnimatedHeroText/>
+        <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl text-center tracking-normal">
+          <AnimatedHeroText />
+        </div>
 
-          <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl text-center relative z-10 mt-2">wing</div>
+        <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl text-center relative z-10 mt-2">wing</div>
 
-          <div className="font-aktiv text-sm sm:text-base text-center mt-8 max-w-2xl text-gray-300">
-            Looking to grow your business, increase sales, and boost profits{" "}
-            <br />
-            with paid ads? You're in the right place!
-          </div>
+        <div className="font-aktiv text-sm sm:text-base text-center mt-8 max-w-2xl text-gray-300">
+          Looking to grow your business, increase sales, and boost profits{" "}
+          <br />
+          with paid ads? You're in the right place!
+        </div>
 
-          <button
-            className="bg-[#0047E2] px-4 py-1 text-white font-medium font-aktiv text-lg mt-10 cursor-pointer"
-            onClick={() => setShowPopup(true)}
-          >
-            Talk to us
-          </button>
+        <button
+          className="bg-[#0047E2] px-4 py-1 text-white font-medium font-aktiv text-lg mt-10 cursor-pointer"
+          onClick={() => setShowPopup(true)}
+        >
+          Talk to us
+        </button>
 
-          {/* Video */}
-          <div className="w-full mt-10 px-2 md:px-16">
-            <video className="w-full h-auto rounded-lg" muted loop autoPlay>
-              <source src={Banner} type="video/mp4" />
-            </video>
-          </div>
+        {/* Video */}
+        <div className="w-full mt-10 px-2 md:px-16">
+          <video className="w-full h-auto rounded-lg" muted loop autoPlay>
+            <source src={Banner} type="video/mp4" />
+          </video>
+        </div>
         {/* </div> */}
       </motion.div>
 
@@ -65,7 +67,7 @@ export default function Home() {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.4  }}
+        viewport={{ once: true, amount: 0.4 }}
         variants={fadeIn}
         className="relative min-h-[40vh] sm:min-h-[50vh] md:min-h-screen text-white flex items-center justify-center px-4 py-12 sm:py-20">
         <img
@@ -92,7 +94,7 @@ export default function Home() {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true  }}
+        viewport={{ once: true }}
         variants={fadeIn}
         className="my-10 px-0">
         <CategoryFilter />
@@ -102,7 +104,7 @@ export default function Home() {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.4  }}
+        viewport={{ once: true, amount: 0.4 }}
         variants={fadeIn}
         className="px-4 sm:px-8 lg:px-20 py-10">
         <h1 className="mb-10 text-xl sm:text-2xl font-aktiv font-light text-[#B2B2B2] text-center">
@@ -157,8 +159,8 @@ export default function Home() {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.4  }}
-        variants={fadeIn} 
+        viewport={{ once: true, amount: 0.4 }}
+        variants={fadeIn}
         className="px-4">
         <GetInTouchSection />
       </motion.div>
@@ -168,7 +170,7 @@ export default function Home() {
         <CreativeSection />
       </div> */}
 
-       {showPopup && <ContactForm onClose={() => setShowPopup(false)} />}
+      {showPopup && <ContactForm onClose={() => setShowPopup(false)} />}
     </div>
   );
 }
