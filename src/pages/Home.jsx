@@ -31,15 +31,15 @@ export default function Home() {
         className="flex flex-col items-center mt-8"
       >
         {/* <div className="flex flex-col items-center mt-8"> */}
-        <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl mb-2 text-center tracking-normal">
+        <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl mb-2 text-center tracking-tight">
           Your extended
         </div>
 
-        <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl text-center tracking-normal">
+        <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl text-center tracking-tight">
           <AnimatedHeroText />
         </div>
 
-        <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl text-center relative z-10 mt-2">wing</div>
+        <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl text-center relative z-10 mt-2 tracking-tight">wing</div>
 
         <div className="font-aktiv text-sm sm:text-base text-center mt-8 max-w-2xl text-gray-300">
           Looking to grow your business, increase sales, and boost profits{" "}
