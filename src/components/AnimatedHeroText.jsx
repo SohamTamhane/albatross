@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import underlineBrush from "../assets/bg-image.png";
+import underlineBrush from "../assets/bg-image-1.png";
+import { TypewriterEffect } from "./TypewriterEffect";
 
 const words = ["Design", "Advertising", "Marketing", "Everything"];
 
@@ -29,12 +30,17 @@ export default function AnimatedHeroText() {
         ></span>
 
         {/* Flip word text */}
-        <span
+        {/* <span
           key={index} 
           className="relative z-10 inline-block animate-flip"
         >
           {words[index]}
-        </span>
+        </span> */}
+        <TypewriterEffect 
+          words={words}
+          speed={100}   // typing speed in ms
+          pause={1200}  // delay before deleting/next word
+      />
       </div>
     </div>
   );

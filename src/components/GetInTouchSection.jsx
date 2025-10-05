@@ -16,12 +16,12 @@ export default function GetInTouchSection() {
 
         <div className="flex flex-col sm:flex-row gap-4">
           <button
-            className="bg-[#0047E2] px-6 py-2 text-white font-medium font-aktiv text-lg cursor-pointer"
+            className="bg-[#0047E2] px-6 py-2 text-white font-medium font-aktiv text-lg cursor-pointer rounded-[4px]"
             onClick={() => setShowPopup(true)}
           >
             Talk to us
           </button>
-          <button className="bg-white/10 px-6 py-2 text-white font-medium font-aktiv text-lg">
+          <button className="bg-white/10 px-6 py-2 text-white font-medium font-aktiv text-lg rounded-[4px]">
             Work at ALB
           </button>
         </div>

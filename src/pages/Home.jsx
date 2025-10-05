@@ -10,6 +10,47 @@ import CategoryFilter from "../components/CategoryFilter";
 import AnimatedHeroText from "../components/AnimatedHeroText";
 import ContactForm from "../components/ContactForm";
 import { useState } from "react";
+import AnimatedTestimonials from "../components/AnimatedTestimonials";
+
+function cn(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+// 🧩 Reusable BentoItem component
+function BentoItem({ title, tags, image, className }) {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 150, damping: 15 }}
+      className={cn(
+        "relative overflow-hidden rounded-2xl group cursor-pointer",
+        "bg-black text-white",
+        className
+      )}
+    >
+      <img
+        src={image}
+        alt={title}
+        className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-90"></div>
+
+      <div className="absolute bottom-4 left-4 z-10">
+        <h2 className="text-lg font-aktiv font-medium">{title}</h2>
+        <div className="flex gap-2 mt-2 flex-wrap">
+          {tags.map((tag, i) => (
+            <span
+              key={i}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 px-3 py-1 text-xs font-aktiv rounded-full"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
@@ -48,7 +89,7 @@ export default function Home() {
         </div>
 
         <button
-          className="bg-[#0047E2] px-4 py-1 text-white font-medium font-aktiv text-lg mt-10 cursor-pointer"
+          className="bg-[#0047E2] px-4 py-1 text-white font-medium font-aktiv text-lg mt-10 cursor-pointer rounded-[4px]"
           onClick={() => setShowPopup(true)}
         >
           Talk to us
@@ -101,59 +142,60 @@ export default function Home() {
       </motion.div>
 
       {/* Featured */}
-      <motion.div
+      <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
         variants={fadeIn}
-        className="px-4 sm:px-8 lg:px-20 py-10">
-        <h1 className="mb-10 text-xl sm:text-2xl font-aktiv font-light text-[#B2B2B2] text-center">
+        className="px-4 sm:px-8 lg:px-20 py-16"
+      >
+        <h1 className="mb-10 text-xl sm:text-2xl font-aktiv font-light text-[#B2B2B2] text-center tracking-[0.3em]">
           F E A T U R E D
         </h1>
-        <div className="grid md:grid-cols-2">
-          <div className="relative group overflow-hidden cursor-pointer">
-            <img
-              src={image1}
-              alt="image1"
-              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute bottom-4 left-4">
-              <h2 className="text-lg font-aktiv font-medium">
-                Kadam Realty
-              </h2>
-              <div className="flex gap-2 mt-2">
-                <span className="bg-white/10 px-3 py-1 text-xs font-aktiv">
-                  Campaign
-                </span>
-                <span className="bg-black/15 px-3 py-1 text-xs font-aktiv border border-white">
-                  Food
-                </span>
-              </div>
-            </div>
-          </div>
 
-          <div className="relative group overflow-hidden cursor-pointer">
-            <img
-              src={image2}
-              alt="image2"
-              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute bottom-4 left-4">
-              <h2 className="text-lg font-aktiv font-medium">
-                AAKAR Alumini DYP
-              </h2>
-              <div className="flex gap-2 mt-2">
-                <span className="bg-white/10 px-3 py-1 text-xs font-aktiv">
-                  Campaign
-                </span>
-                <span className="bg-black/15 px-3 py-1 text-xs font-aktiv border border-white">
-                  Jewellery
-                </span>
-              </div>
-            </div>
-          </div>
+        <div
+          className={cn(
+            "grid gap-4 sm:gap-6 md:gap-8",
+            "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+            "auto-rows-[200px] sm:auto-rows-[250px] lg:auto-rows-[300px]"
+          )}
+        >
+          {/* Item 1 */}
+          <BentoItem
+            title="Kadam Realty"
+            tags={["Campaign", "Food"]}
+            image={image1}
+            className="sm:col-span-2 lg:row-span-2"
+          />
+
+          {/* Item 2 */}
+          <BentoItem
+            title="AAKAR Alumni DYP"
+            tags={["Campaign", "Jewellery"]}
+            image={image2}
+          />
+
+          {/* Item 2 */}
+          <BentoItem
+            title="AAKAR Alumni DYP"
+            tags={["Campaign", "Jewellery"]}
+            image={image2}
+          />
+
+          {/* Item 2 */}
+          <BentoItem
+            title="AAKAR Alumni DYP"
+            tags={["Campaign", "Jewellery"]}
+            image={image2}
+          />
+          {/* Item 2 */}
+          <BentoItem
+            title="AAKAR Alumni DYP"
+            tags={["Campaign", "Jewellery"]}
+            image={image2}
+          />
         </div>
-      </motion.div>
+      </motion.section>
 
       {/* Get in Touch Section */}
       <motion.div
@@ -166,9 +208,10 @@ export default function Home() {
       </motion.div>
 
       {/* One of the creatives */}
-      {/* <div className="mt-10 px-4">
-        <CreativeSection />
-      </div> */}
+      <div className="mt-10 px-4">
+        <AnimatedTestimonials />
+      </div>
+      
 
       {showPopup && <ContactForm onClose={() => setShowPopup(false)} />}
     </div>

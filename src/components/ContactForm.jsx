@@ -58,7 +58,7 @@ export default function ContactForm({ onClose }) {
             onChange={handleChange}
             required
           />
-          <button type="submit" className="bg-[#0047E2] text-white w-full py-2 rounded cursor-pointer">
+          <button type="submit" className="bg-[#0047E2] text-white w-full py-2 cursor-pointer rounded-[4px]">
             Send Message
           </button>
         </form>

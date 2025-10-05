@@ -28,10 +28,10 @@ export default function AdsModal({ project, onClose }) {
   const embedUrl = getCleanYouTubeEmbedUrl(project.videoUrl);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-md flex items-center justify-center">
+    <div className="fixed inset-0 z-115 backdrop-blur-md flex items-center justify-center">
       <div
         ref={modalRef}
-        className="bg-[#111] w-full h-full overflow-y-auto no-scrollbar p-6 relative text-white"
+        className="bg-black w-[900px] h-full overflow-y-auto no-scrollbar p-6 relative text-white"
       >
         {/* Close Button */}
         <div className="sticky top-0 z-50 flex justify-end">
