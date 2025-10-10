@@ -9,6 +9,9 @@ import CategoryFilter from "../components/CategoryFilter";
 import AnimatedHeroText from "../components/AnimatedHeroText";
 import ContactForm from "../components/ContactForm";
 import { useState } from "react";
+import { BackgroundBeams } from "../components/background-beams";
+import { motion } from "motion/react";
+import { PointerHighlight } from "../components/pointer-highlight";
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
@@ -32,6 +35,7 @@ export default function Home() {
           Talk to us
         </button>
 
+        <BackgroundBeams/>
 
         <div className="font-montserrat text-sm sm:text-base text-center mt-8 max-w-2xl text-gray-300">
           Looking to grow your business, increase sales, and boost profits{" "}
@@ -40,11 +44,38 @@ export default function Home() {
         </div>
 
         {/* Video */}
-        <div className="w-full mt-10 px-2 md:px-16">
+        {/* <div className="w-full mt-10 px-2 md:px-16">
           <video className="w-full h-auto rounded-lg" muted loop autoPlay>
             <source src={Banner} type="video/mp4" />
           </video>
+        </div> */}
+        <div className="px-2 md:px-16 ">
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 10,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 0.3,
+              delay: 1.2,
+            }}
+            className="relative z-10 mt-20 rounded-3xl border border-neutral-200 bg-neutral-100 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900"
+          >
+            <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
+              <video
+                src={Banner}
+                alt="Landing page preview"
+                className="aspect-[16/9] w-full h-auto"
+                muted loop autoPlay
+              />
+            </div>
+          </motion.div>
         </div>
+
       </div>
 
       {/* Second section */}
@@ -62,10 +93,16 @@ export default function Home() {
             out in the current market.
           </p>
           <br />
-          <p className="font-medium">
+          {/* <p className="font-medium">
             That's how we work. With our sheer{" "}
             <span className="italic">f*cking</span> passion.
-          </p>
+          </p> */}
+          <div className="flex items-center justify-center">
+            <PointerHighlight>
+              <span className="p-4">That's how we work. With our sheer{" "}
+              <span className="italic">f*cking  </span>passion.</span>
+            </PointerHighlight>
+          </div>
         </div>
       </div>
 
