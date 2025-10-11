@@ -57,7 +57,7 @@ export default function Dashboard() {
       <Sidebar />
 
       <div className="flex-1 p-6 overflow-y-auto">
-        <h1 className="text-3xl font-bold font-montserrat mb-6 ml-12">Dashboard</h1>
+        <h1 className="text-3xl font-bold font-aktiv mb-6 ml-12">Dashboard</h1>
 
         {loading ? (
           <p className="text-gray-400 ml-12 text-center">Loading projects...</p>

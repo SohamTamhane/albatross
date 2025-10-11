@@ -23,7 +23,7 @@ export default function CreativeSection(){
 
   return (
     <div className="text-white py-10 px-4">
-      <div className="font-montserrat font-light text-2xl text-center mb-10">
+      <div className="font-aktiv font-light text-2xl text-center mb-10">
         One of the creatives
       </div>
 
@@ -43,7 +43,7 @@ export default function CreativeSection(){
 
       <hr className="w-[60%] mx-auto border-gray-600 my-6" />
 
-      <p className="font-montserrat font-light text-center max-w-xl mx-auto text-sm sm:text-base px-4">
+      <p className="font-aktiv font-light text-center max-w-xl mx-auto text-sm sm:text-base px-4">
         {data[activeIndex].text}
       </p>
     </div>

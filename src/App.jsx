@@ -1,9 +1,9 @@
 import {
-  BrowserRouter,
   Navigate,
   Route,
   Routes,
   useLocation,
+  HashRouter
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
@@ -25,7 +25,7 @@ function AppRoutes({ user }) {
 
   return (
     <>
-      <div className="bg-[#131313] text-white font-[var(--font-aktiv)]">
+      <div className="bg-black text-white font-[var(--font-aktiv)]">
         {!isAdminRoute && <Navbar />}
 
         <Routes>
@@ -84,9 +84,9 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter basename="/albatross/">
+    <HashRouter>
       <AppRoutes user={user} />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

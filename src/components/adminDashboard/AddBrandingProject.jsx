@@ -162,7 +162,7 @@ const AddBrandingProject = () => {
     <div className="flex h-screen bg-[#1a1a1a] text-white">
       <Sidebar />
       <div className="flex-1 p-6 overflow-y-auto ml-0 md:ml-20">
-        <h2 className="text-3xl font-bold mb-4 ml-4 font-montserrat">Add Branding Projects</h2>
+        <h2 className="text-3xl font-bold mb-4 ml-4 font-aktiv">Add Branding Projects</h2>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {projects.map((project, index) => (

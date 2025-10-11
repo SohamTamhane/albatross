@@ -54,9 +54,9 @@ export default function CategoryFilter() {
   }, [active, products]);
 
   return (
-    <div className="text-white px-4 py-6">
-      <div className="sticky top-0 z-40 bg-[#131313] bg-opacity-80 backdrop-blur-sm py-4 px-4 w-full">
-        <ul className="flex flex-row gap-4 text-lg md:text-2xl sm:text-xl font-montserrat text-gray-400 w-full overflow-x-scroll text-nowrap lg:justify-center md:justify-center sm:justify-start no-scrollbar">
+    <div className="text-white px-0 py-6">
+      <div className="sticky top-0 z-40 bg-black bg-opacity-80 backdrop-blur-sm py-4 px-8 w-full">
+        <ul className="flex flex-row gap-4 text-lg md:text-2xl sm:text-xl font-aktiv text-gray-400 w-full overflow-x-scroll text-nowrap lg:justify-center md:justify-center sm:justify-start no-scrollbar">
           {categories.map((category) => (
             <li
               key={category}
