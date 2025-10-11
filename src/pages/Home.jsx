@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import HeroSectionImg1 from "../assets/Hero-Section-Img-1.png";
 import Banner from "../assets/banner3.mp4";
 import BgShapeImg from "../assets/bg-shape.png";
@@ -9,24 +10,22 @@ import GetInTouchSection from "../components/GetInTouchSection";
 import CategoryFilter from "../components/CategoryFilter";
 import AnimatedHeroText from "../components/AnimatedHeroText";
 import ContactForm from "../components/ContactForm";
-import { useState } from "react";
 import AnimatedTestimonials from "../components/AnimatedTestimonials";
 import { BackgroundBeams } from "../components/background-beams";
-import {PointerHighlight} from "../components/pointer-highlight";
+import { PointerHighlight } from "../components/pointer-highlight";
 
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-// 🧩 Reusable BentoItem component
+// 🧩 Reusable BentoItem component with animation
 function BentoItem({ title, tags, image, className }) {
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
       transition={{ type: "spring", stiffness: 150, damping: 15 }}
       className={cn(
-        "relative overflow-hidden rounded-2xl group cursor-pointer",
-        "bg-black text-white",
+        "relative overflow-hidden rounded-2xl group cursor-pointer bg-black text-white shadow-lg shadow-black/30",
         className
       )}
     >
@@ -35,7 +34,7 @@ function BentoItem({ title, tags, image, className }) {
         alt={title}
         className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-90"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
 
       <div className="absolute bottom-4 left-4 z-10">
         <h2 className="text-lg font-aktiv font-medium">{title}</h2>
@@ -57,23 +56,22 @@ function BentoItem({ title, tags, image, className }) {
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
 
-  // Fade-in animation variants
+  // Fade-in variants
   const fadeIn = {
     hidden: { opacity: 0, y: 70 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
   };
 
   return (
-    <div className="w-full">
-      {/* Hero section */}
-      <motion.div
+    <div className="w-full relative overflow-hidden">
+      {/* Hero Section */}
+      <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
         variants={fadeIn}
-        className="flex flex-col items-center mt-8"
+        className="flex flex-col items-center mt-8 relative"
       >
-        {/* <div className="flex flex-col items-center mt-8"> */}
         <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl mb-2 text-center tracking-tight">
           Your extended
         </div>
@@ -82,102 +80,91 @@ export default function Home() {
           <AnimatedHeroText />
         </div>
 
-        <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl text-center relative z-10 mt-2 tracking-tight">wing</div>
-
-        <BackgroundBeams/>
-
-        <div className="font-montserrat text-sm sm:text-base text-center mt-8 max-w-2xl text-gray-300">
-          Looking to grow your business, increase sales, and boost profits{" "}
-          <br />
-          with paid ads? You're in the right place!
+        <div className="font-aktiv text-5xl sm:text-5xl md:text-6xl text-center relative z-10 mt-2 tracking-tight">
+          wing
         </div>
 
-        <button
-          className="bg-[#0047E2] px-4 py-1 text-white font-medium font-aktiv text-lg mt-10 cursor-pointer rounded-[4px]"
-          onClick={() => setShowPopup(true)}
+        <BackgroundBeams />
+
+        <p className="font-montserrat text-sm sm:text-base text-center mt-8 max-w-2xl text-gray-300 leading-relaxed">
+          Looking to grow your business, increase sales, and boost profits? <br />
+          You’re in the right place!
+        </p>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.97 }}
+          onClick={() => {console.log("Clicked");
+            setShowPopup(true)}}
+          className="bg-[#0047E2] z-40 px-6 py-2 text-white font-medium font-aktiv text-lg mt-10 rounded-[6px] shadow-md hover:shadow-[#0047E2]/40 transition-shadow"
         >
           Talk to us
-        </button>
+        </motion.button>
 
-        {/* Video */}
-        {/* <div className="w-full mt-10 px-2 md:px-16">
-          <video className="w-full h-auto rounded-lg" muted loop autoPlay>
-            <source src={Banner} type="video/mp4" />
-          </video>
-        </div> */}
-        <div className="px-2 md:px-16 ">
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 10,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 0.3,
-              delay: 1.2,
-            }}
-            className="relative z-10 mt-20 rounded-3xl border border-neutral-200 bg-neutral-100 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900"
-          >
-            <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
+        {/* Video Preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 1 }}
+          className="px-2 md:px-16 mt-20 relative z-10"
+        >
+          <div className="rounded-3xl border border-neutral-800 bg-neutral-900 p-4 shadow-lg shadow-black/40">
+            <div className="w-full overflow-hidden rounded-xl border border-gray-700">
               <video
                 src={Banner}
-                alt="Landing page preview"
+                alt="Landing Preview"
                 className="aspect-[16/9] w-full h-auto"
-                muted loop autoPlay
+                muted
+                loop
+                autoPlay
               />
             </div>
-          </motion.div>
-        </div>
-        {/* </div> */}
-      </motion.div>
+          </div>
+        </motion.div>
+      </motion.section>
 
-      {/* Second section */}
-      <motion.div
+      {/* Story Section */}
+      <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
         variants={fadeIn}
-        className="relative min-h-[40vh] sm:min-h-[50vh] md:min-h-screen text-white flex items-center justify-center px-4 py-12 sm:py-20">
+        className="relative min-h-[40vh] sm:min-h-[50vh] md:min-h-screen text-white flex items-center justify-center px-4 py-20"
+      >
         <img
           src={BgShapeImg}
-          alt="Bg-shape-img..."
-          className="absolute inset-0 object-cover w-full h-full"
+          alt="Background shape"
+          className="absolute inset-0 object-cover w-full h-full opacity-70"
         />
-
-        <div className="relative max-w-4xl text-center font-aktiv text-sm sm:text-base md:text-lg font-light px-2">
+        <div className="relative max-w-4xl text-center font-aktiv text-base md:text-lg font-light px-4">
           <p>
-            We can have some text here saying or explaining a story or the
-            values we provide at Albatross. How a brand is important to stand
-            out in the current market.
+            We can have some text here saying or explaining a story or the values we
+            provide at Albatross. How a brand is important to stand out in the current
+            market.
           </p>
-          <br />
-          {/* <p className="font-medium">
-            That's how we work. With our sheer{" "}
-            <span className="italic">f*cking</span> passion.
-          </p> */}
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center mt-6">
             <PointerHighlight>
-              <span className="p-4">That's how we work. With our sheer{" "}
-              <span className="italic">f*cking  </span>passion.</span>
+              <span className="p-4">
+                That’s how we work. With our sheer{" "}
+                <span className="italic">f*cking</span> passion.
+              </span>
             </PointerHighlight>
           </div>
         </div>
-      </motion.div>
+      </motion.section>
 
       {/* Category Filter */}
-      <motion.div
+      <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeIn}
-        className="my-10 px-0">
+        className="my-10 px-0"
+      >
         <CategoryFilter />
-      </motion.div>
+      </motion.section>
 
-      {/* Featured */}
+      {/* Featured Grid */}
       <motion.section
         initial="hidden"
         whileInView="visible"
@@ -196,60 +183,57 @@ export default function Home() {
             "auto-rows-[200px] sm:auto-rows-[250px] lg:auto-rows-[300px]"
           )}
         >
-          {/* Item 1 */}
-          <BentoItem
-            title="Kadam Realty"
-            tags={["Campaign", "Food"]}
-            image={image1}
-            className="sm:col-span-2 lg:row-span-2"
-          />
-
-          {/* Item 2 */}
-          <BentoItem
-            title="AAKAR Alumni DYP"
-            tags={["Campaign", "Jewellery"]}
-            image={image2}
-          />
-
-          {/* Item 2 */}
-          <BentoItem
-            title="AAKAR Alumni DYP"
-            tags={["Campaign", "Jewellery"]}
-            image={image2}
-          />
-
-          {/* Item 2 */}
-          <BentoItem
-            title="AAKAR Alumni DYP"
-            tags={["Campaign", "Jewellery"]}
-            image={image2}
-          />
-          {/* Item 2 */}
-          <BentoItem
-            title="AAKAR Alumni DYP"
-            tags={["Campaign", "Jewellery"]}
-            image={image2}
-          />
+          <BentoItem title="Kadam Realty" tags={["Campaign", "Food"]} image={image1} className="sm:col-span-2 lg:row-span-2" />
+          <BentoItem title="AAKAR Alumni DYP" tags={["Campaign", "Jewellery"]} image={image2} />
+          <BentoItem title="AAKAR Alumni DYP" tags={["Campaign", "Jewellery"]} image={image2} />
+          <BentoItem title="AAKAR Alumni DYP" tags={["Campaign", "Jewellery"]} image={image2} />
+          <BentoItem title="AAKAR Alumni DYP" tags={["Campaign", "Jewellery"]} image={image2} />
         </div>
       </motion.section>
 
-      {/* Get in Touch Section */}
-      <motion.div
+      {/* Get in Touch */}
+      <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
         variants={fadeIn}
-        className="px-4">
+        className="px-4"
+      >
         <GetInTouchSection />
-      </motion.div>
+      </motion.section>
 
-      {/* One of the creatives */}
-      <div className="mt-10 px-4">
+      {/* Testimonials */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.4 }}
+        variants={fadeIn}
+        className="mt-10 px-4"
+      >
         <AnimatedTestimonials />
-      </div>
-      
+      </motion.section>
+
+      {/* Contact Modal (with AnimatePresence) */}
       {/* Contact Form Modal */}
-      {showPopup && <ContactForm onClose={() => setShowPopup(false)} />}
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/50 backdrop-blur-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+            >
+              <ContactForm onClose={() => setShowPopup(false)} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
